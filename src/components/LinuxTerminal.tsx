@@ -18,7 +18,7 @@ export const LinuxTerminal: React.FC = () => {
   const [currentDistro, setCurrentDistro] = useState('ubuntu');
   const terminalRef = useRef<HTMLDivElement>(null);
 
-  const commonCommands: Record<string, string> = {
+  const commonCommands: Record<string, string | (() => string)> = {
     'help': `Comandi disponibili:
 • distro-info - Mostra informazioni sulla distro corrente
 • switch-distro [nome] - Cambia distro (ubuntu, arch, debian, fedora)
@@ -119,10 +119,13 @@ Famiglia: ${info.family}`;
       } else {
         result = 'Distro non supportata. Disponibili: ubuntu, arch, debian, fedora';
       }
-    } else if (typeof commonCommands[cmd] === 'function') {
-      result = (commonCommands[cmd] as Function)();
     } else if (commonCommands[cmd]) {
-      result = commonCommands[cmd];
+      const command = commonCommands[cmd];
+      if (typeof command === 'function') {
+        result = command();
+      } else {
+        result = command;
+      }
     } else {
       result = `Comando non riconosciuto: ${cmd}. Scrivi "help" per assistenza.`;
     }
