@@ -92,7 +92,7 @@ const Index = () => {
                   poi esplora package manager e servizi systemd.
                 </div>
                 <div className="p-3 bg-js-light-yellow rounded-lg">
-                  <strong className="text-gray-900">Programmazione:</strong> Alterna teoria e pratica, 
+                  <strong className="text-foreground">Programmazione:</strong> Alterna teoria e pratica, 
                   costruisci progetti per consolidare i concetti.
                 </div>
                 <div className="p-3 bg-arch-light-blue rounded-lg">
