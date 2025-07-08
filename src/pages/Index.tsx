@@ -87,15 +87,15 @@ const Index = () => {
                 Suggerimenti di Studio
               </h3>
               <div className="space-y-3 text-sm">
-                <div className="p-3 bg-ubuntu-light-orange rounded-lg">
+                <div className="p-3 bg-secondary rounded-lg">
                   <strong className="text-ubuntu-orange">Linux:</strong> Inizia con i comandi base, 
                   poi esplora package manager e servizi systemd.
                 </div>
-                <div className="p-3 bg-js-light-yellow rounded-lg">
-                  <strong className="text-foreground">Programmazione:</strong> Alterna teoria e pratica, 
+                <div className="p-3 bg-secondary rounded-lg">
+                  <strong className="text-js-yellow">Programmazione:</strong> Alterna teoria e pratica, 
                   costruisci progetti per consolidare i concetti.
                 </div>
-                <div className="p-3 bg-arch-light-blue rounded-lg">
+                <div className="p-3 bg-secondary rounded-lg">
                   <strong className="text-arch-blue">DevOps:</strong> Combina conoscenze Linux 
                   con scripting per automazione e deployment.
                 </div>
