@@ -39,7 +39,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4">
+    <div className="min-h-screen bg-background py-8 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <header className="text-center mb-8">
@@ -47,12 +47,12 @@ const Index = () => {
             <Terminal className="w-8 h-8 text-ubuntu-orange" />
             <h1 className="text-4xl font-bold">
               <span className="text-ubuntu-orange">Dev</span>
-              <span className="text-gray-800">Study</span>
+              <span className="text-foreground">Study</span>
               <span className="text-arch-blue">Tracker</span>
             </h1>
             <Code className="w-8 h-8 text-js-yellow" />
           </div>
-          <p className="text-xl text-gray-600 mb-2">
+          <p className="text-xl text-muted-foreground mb-2">
             Organizza il tuo studio di programmazione e Linux
           </p>
           <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
@@ -110,7 +110,7 @@ const Index = () => {
         {/* Task List */}
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <h2 className="text-2xl font-bold text-gray-800">Sessioni di Studio</h2>
+            <h2 className="text-2xl font-bold text-foreground">Sessioni di Studio</h2>
             {tasks.length > 0 && (
               <span className="text-sm text-muted-foreground">
                 ({tasks.filter(t => !t.completed).length} attive, {tasks.filter(t => t.completed).length} completate)

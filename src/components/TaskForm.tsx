@@ -78,7 +78,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onTaskAdded }) => {
                   setTaskType('programming');
                   setSelectedTopic(null);
                 }}
-                className={taskType === 'programming' ? 'bg-js-yellow text-gray-900 hover:bg-js-yellow/90' : ''}
+                className={taskType === 'programming' ? 'bg-js-yellow text-black hover:bg-js-yellow/90' : ''}
               >
                 {} Programmazione
               </Button>

@@ -47,7 +47,7 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks, onToggleTask, onDelet
                     className={
                       task.type === 'linux'
                         ? 'bg-ubuntu-orange text-white'
-                        : 'bg-js-yellow text-gray-900'
+                        : 'bg-js-yellow text-black'
                     }
                   >
                     {task.type === 'linux'
@@ -133,7 +133,7 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks, onToggleTask, onDelet
                           href={resource}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-600 hover:underline truncate"
+                          className="text-primary hover:underline truncate"
                         >
                           {resource}
                         </a>
