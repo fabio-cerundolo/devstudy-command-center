@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,21 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Colori per Linux
+				'ubuntu-orange': '#E95420',
+				'ubuntu-light-orange': '#F5E9E4',
+				'arch-blue': '#1793D1',
+				'arch-light-blue': '#E3F2FD',
+				
+				// Colori per Programmazione
+				'js-yellow': '#F7DF1E',
+				'js-light-yellow': '#FCF8E3',
+				'python-blue': '#3776AB',
+				'python-light-blue': '#E8F4FD',
+				
+				// Terminale
+				'terminal-green': '#4AF626'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
