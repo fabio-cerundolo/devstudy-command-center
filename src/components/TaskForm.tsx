@@ -7,17 +7,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Textarea } from './ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { taskService } from '../services/TaskService';
-import { StudyTask, LinuxDistro, ProgrammingTopic } from '../types/StudyTask';
-import { Code2, Terminal } from 'lucide-react';
+import { StudyTask, LinuxDistro, ProgrammingTopic, DataAnalysisTopic } from '../types/StudyTask';
+import { Code2, Terminal, BarChart3 } from 'lucide-react';
 
 interface TaskFormProps {
   onTaskAdded: (task: StudyTask) => void;
 }
 
 export const TaskForm: React.FC<TaskFormProps> = ({ onTaskAdded }) => {
-  const [taskType, setTaskType] = useState<'linux' | 'programming'>('linux');
+  const [taskType, setTaskType] = useState<'linux' | 'programming' | 'data-analysis'>('linux');
   const [title, setTitle] = useState('');
-  const [selectedTopic, setSelectedTopic] = useState<LinuxDistro | ProgrammingTopic | null>(null);
+  const [selectedTopic, setSelectedTopic] = useState<LinuxDistro | ProgrammingTopic | DataAnalysisTopic | null>(null);
   const [duration, setDuration] = useState(30);
   const [resources, setResources] = useState('');
 
@@ -44,13 +44,19 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onTaskAdded }) => {
     setResources('');
   };
 
-  const topics = taskType === 'linux' ? taskService.linuxDistros : taskService.programmingTopics;
+  const topics = taskType === 'linux' 
+    ? taskService.linuxDistros 
+    : taskType === 'programming' 
+    ? taskService.programmingTopics 
+    : taskService.dataAnalysisTopics;
 
   return (
     <Card className="mb-6">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          {taskType === 'linux' ? <Terminal className="w-5 h-5" /> : <Code2 className="w-5 h-5" />}
+          {taskType === 'linux' ? <Terminal className="w-5 h-5" /> 
+           : taskType === 'programming' ? <Code2 className="w-5 h-5" />
+           : <BarChart3 className="w-5 h-5" />}
           Nuova Sessione di Studio
         </CardTitle>
       </CardHeader>
@@ -59,7 +65,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onTaskAdded }) => {
           {/* Tipo di Studio */}
           <div>
             <Label>Tipo di Studio</Label>
-            <div className="flex space-x-2 mt-2">
+            <div className="flex flex-wrap gap-2 mt-2">
               <Button
                 type="button"
                 variant={taskType === 'linux' ? 'default' : 'outline'}
@@ -80,7 +86,18 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onTaskAdded }) => {
                 }}
                 className={taskType === 'programming' ? 'bg-js-yellow text-black hover:bg-js-yellow/90' : ''}
               >
-                {} Programmazione
+                💻 Programmazione
+              </Button>
+              <Button
+                type="button"
+                variant={taskType === 'data-analysis' ? 'default' : 'outline'}
+                onClick={() => {
+                  setTaskType('data-analysis');
+                  setSelectedTopic(null);
+                }}
+                className={taskType === 'data-analysis' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600' : ''}
+              >
+                📊 Data Analysis & AI
               </Button>
             </div>
           </div>
@@ -120,6 +137,9 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onTaskAdded }) => {
                     {taskType === 'programming' && (topic as ProgrammingTopic).framework && 
                       ` (${(topic as ProgrammingTopic).framework})`
                     }
+                    {taskType === 'data-analysis' && (topic as DataAnalysisTopic).category && 
+                      ` - ${(topic as DataAnalysisTopic).category}`
+                    }
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -142,7 +162,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onTaskAdded }) => {
                       Init System: {(selectedTopic as LinuxDistro).initSystem}
                     </p>
                   </div>
-                ) : (
+                ) : taskType === 'programming' ? (
                   <div>
                     <h4 className="font-bold" style={{ color: (selectedTopic as ProgrammingTopic).color }}>
                       {(selectedTopic as ProgrammingTopic).language}
@@ -161,6 +181,37 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onTaskAdded }) => {
                           {concept}
                         </span>
                       ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <h4 className="font-bold" style={{ color: (selectedTopic as DataAnalysisTopic).color }}>
+                      {(selectedTopic as DataAnalysisTopic).name}
+                    </h4>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      Categoria: {(selectedTopic as DataAnalysisTopic).category}
+                    </p>
+                    <div className="space-y-2">
+                      <div>
+                        <p className="text-xs font-medium text-muted-foreground">Tecnologie:</p>
+                        <div className="flex flex-wrap gap-1">
+                          {(selectedTopic as DataAnalysisTopic).technologies.map((tech, index) => (
+                            <span key={index} className="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded text-xs">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-xs font-medium text-muted-foreground">Integrazione AI:</p>
+                        <div className="flex flex-wrap gap-1">
+                          {(selectedTopic as DataAnalysisTopic).aiIntegration.map((ai, index) => (
+                            <span key={index} className="bg-purple-100 dark:bg-purple-900 px-2 py-1 rounded text-xs">
+                              {ai}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}

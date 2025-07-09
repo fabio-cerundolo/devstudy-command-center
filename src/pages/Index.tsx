@@ -99,6 +99,10 @@ const Index = () => {
                   <strong className="text-arch-blue">DevOps:</strong> Combina conoscenze Linux 
                   con scripting per automazione e deployment.
                 </div>
+                <div className="p-3 bg-secondary rounded-lg">
+                  <strong className="text-purple-500">Data Analysis & AI:</strong> Analizza dati 
+                  con Python, R e strumenti di Machine Learning.
+                </div>
               </div>
             </CardContent>
           </Card>

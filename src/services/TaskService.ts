@@ -1,5 +1,5 @@
 
-import { StudyTask, LinuxDistro, ProgrammingTopic } from '../types/StudyTask';
+import { StudyTask, LinuxDistro, ProgrammingTopic, DataAnalysisTopic } from '../types/StudyTask';
 
 class TaskService {
   private STORAGE_KEY = 'dev_study_tasks';
@@ -21,6 +21,51 @@ class TaskService {
     { language: 'Rust', concepts: ['Ownership', 'Borrowing', 'Memory Safety'], color: '#CE422B' },
     { language: 'Go', concepts: ['Concurrency', 'Goroutines', 'Channels'], color: '#00ADD8' },
     { language: 'Java', framework: 'Spring', concepts: ['JVM', 'Dependency Injection', 'Enterprise'], color: '#ED8B00' }
+  ];
+
+  dataAnalysisTopics: DataAnalysisTopic[] = [
+    { 
+      name: 'Python per Data Science', 
+      category: 'language', 
+      technologies: ['Pandas', 'NumPy', 'Matplotlib', 'Seaborn'], 
+      aiIntegration: ['Scikit-learn', 'TensorFlow', 'PyTorch'], 
+      color: '#3776AB' 
+    },
+    { 
+      name: 'R Statistical Computing', 
+      category: 'language', 
+      technologies: ['ggplot2', 'dplyr', 'tidyr', 'Shiny'], 
+      aiIntegration: ['caret', 'randomForest', 'nnet'], 
+      color: '#276DC3' 
+    },
+    { 
+      name: 'SQL & Database Analysis', 
+      category: 'tool', 
+      technologies: ['PostgreSQL', 'MySQL', 'BigQuery', 'Snowflake'], 
+      aiIntegration: ['SQL AI assistants', 'Automated query optimization'], 
+      color: '#336791' 
+    },
+    { 
+      name: 'Machine Learning Frameworks', 
+      category: 'ai-framework', 
+      technologies: ['Jupyter', 'Google Colab', 'MLflow'], 
+      aiIntegration: ['Scikit-learn', 'TensorFlow', 'Keras', 'XGBoost'], 
+      color: '#FF6F00' 
+    },
+    { 
+      name: 'Business Intelligence Tools', 
+      category: 'tool', 
+      technologies: ['Tableau', 'Power BI', 'Looker', 'Excel'], 
+      aiIntegration: ['AI-powered insights', 'Automated reporting'], 
+      color: '#E97627' 
+    },
+    { 
+      name: 'Deep Learning & AI', 
+      category: 'ai-framework', 
+      technologies: ['Neural Networks', 'CNN', 'RNN', 'Transformers'], 
+      aiIntegration: ['OpenAI API', 'Hugging Face', 'LangChain'], 
+      color: '#FF4081' 
+    }
   ];
 
   getTasks(): StudyTask[] {
@@ -72,20 +117,26 @@ class TaskService {
     
     const linuxTasks = tasks.filter(t => t.type === 'linux');
     const programmingTasks = tasks.filter(t => t.type === 'programming');
+    const dataAnalysisTasks = tasks.filter(t => t.type === 'data-analysis');
     
     const linuxTime = linuxTasks.reduce((acc, task) => acc + task.duration, 0);
     const programmingTime = programmingTasks.reduce((acc, task) => acc + task.duration, 0);
+    const dataAnalysisTime = dataAnalysisTasks.reduce((acc, task) => acc + task.duration, 0);
     
     const studiedDistros = [...new Set(linuxTasks.map(t => (t.topic as LinuxDistro).name))];
     const studiedLanguages = [...new Set(programmingTasks.map(t => (t.topic as ProgrammingTopic).language))];
+    const studiedDataTopics = [...new Set(dataAnalysisTasks.map(t => (t.topic as DataAnalysisTopic).name))];
     
     return {
       linuxTime,
       programmingTime,
+      dataAnalysisTime,
       linuxTasksCount: linuxTasks.length,
       programmingTasksCount: programmingTasks.length,
+      dataAnalysisTasksCount: dataAnalysisTasks.length,
       studiedDistros,
       studiedLanguages,
+      studiedDataTopics,
       totalTasks: tasks.length,
       completedTasks: tasks.filter(t => t.completed).length
     };

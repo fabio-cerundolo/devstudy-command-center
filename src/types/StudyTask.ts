@@ -13,11 +13,19 @@ export interface ProgrammingTopic {
   color: string;
 }
 
+export interface DataAnalysisTopic {
+  name: string;
+  category: 'language' | 'library' | 'tool' | 'ai-framework';
+  technologies: string[];
+  aiIntegration: string[];
+  color: string;
+}
+
 export interface StudyTask {
   id: string;
   title: string;
-  type: 'linux' | 'programming';
-  topic: LinuxDistro | ProgrammingTopic;
+  type: 'linux' | 'programming' | 'data-analysis';
+  topic: LinuxDistro | ProgrammingTopic | DataAnalysisTopic;
   duration: number;
   completed: boolean;
   resources: string[];
