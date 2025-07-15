@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
-import { StudyTask, LinuxDistro, ProgrammingTopic } from '../types/StudyTask';
+import { StudyTask, LinuxDistro, ProgrammingTopic, DataAnalysisTopic } from '../types/StudyTask';
 import { CheckCircle, Circle, Clock, ExternalLink, Trash2 } from 'lucide-react';
 
 interface TaskListProps {
@@ -31,7 +31,9 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks, onToggleTask, onDelet
           className={`transition-all ${
             task.type === 'linux'
               ? 'border-l-4 border-l-ubuntu-orange bg-ubuntu-light-orange/20'
-              : 'border-l-4 border-l-js-yellow bg-js-light-yellow/20'
+              : task.type === 'programming'
+              ? 'border-l-4 border-l-js-yellow bg-js-light-yellow/20'
+              : 'border-l-4 border-l-purple-500 bg-purple-500/20'
           } ${task.completed ? 'opacity-60' : ''}`}
         >
           <CardContent className="p-4">
@@ -47,12 +49,16 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks, onToggleTask, onDelet
                     className={
                       task.type === 'linux'
                         ? 'bg-ubuntu-orange text-white'
-                        : 'bg-js-yellow text-black'
+                        : task.type === 'programming'
+                        ? 'bg-js-yellow text-black'
+                        : 'bg-purple-500 text-white'
                     }
                   >
                     {task.type === 'linux'
                       ? `🐧 ${(task.topic as LinuxDistro).name}`
-                      : `{} ${(task.topic as ProgrammingTopic).language}`
+                      : task.type === 'programming'
+                      ? `{} ${(task.topic as ProgrammingTopic).language}`
+                      : `🤖 ${(task.topic as DataAnalysisTopic).name}`
                     }
                   </Badge>
                   <Badge variant="outline" className="flex items-center gap-1">
@@ -99,7 +105,7 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks, onToggleTask, onDelet
                     </code>
                   </div>
                 </div>
-              ) : (
+              ) : task.type === 'programming' ? (
                 <div className="space-y-2">
                   {(task.topic as ProgrammingTopic).framework && (
                     <div className="text-sm">
@@ -115,6 +121,35 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks, onToggleTask, onDelet
                       {(task.topic as ProgrammingTopic).concepts.map((concept, index) => (
                         <Badge key={index} variant="secondary" className="text-xs">
                           {concept}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <div className="text-sm">
+                    <span className="font-semibold">Categoria:</span>{' '}
+                    <Badge variant="outline">
+                      {(task.topic as DataAnalysisTopic).category}
+                    </Badge>
+                  </div>
+                  <div className="text-sm">
+                    <span className="font-semibold">Tecnologie:</span>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {(task.topic as DataAnalysisTopic).technologies.map((tech, index) => (
+                        <Badge key={index} variant="secondary" className="text-xs">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="text-sm">
+                    <span className="font-semibold">Integrazione AI:</span>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {(task.topic as DataAnalysisTopic).aiIntegration.map((ai, index) => (
+                        <Badge key={index} variant="secondary" className="text-xs bg-purple-500/20 text-purple-700">
+                          {ai}
                         </Badge>
                       ))}
                     </div>
