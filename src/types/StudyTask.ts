@@ -32,27 +32,6 @@ export interface StudyTask {
   createdAt: Date;
 }
 
-export interface TodoItem {
-  id: string;
-  text: string;
-  completed: boolean;
-  priority: 'low' | 'medium' | 'high';
-  tags: string[];
-  dueDate?: Date;
-  createdAt: Date;
-}
-
-export interface TodoProject {
-  id: string;
-  name: string;
-  description: string;
-  items: TodoItem[];
-  studyType?: 'linux' | 'programming' | 'data-analysis';
-  relatedTaskId?: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
 export interface TerminalOutput {
   command: string;
   result: string;

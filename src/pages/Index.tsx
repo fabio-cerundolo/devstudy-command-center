@@ -5,7 +5,6 @@ import { TaskList } from '../components/TaskList';
 import { StudyStats } from '../components/StudyStats';
 import { LinuxTerminal } from '../components/LinuxTerminal';
 import { PomodoroTimer } from '../components/PomodoroTimer';
-import { TodoList } from '../components/TodoList';
 import { taskService } from '../services/TaskService';
 import { StudyTask } from '../types/StudyTask';
 import { Card, CardContent } from '../components/ui/card';
@@ -108,9 +107,6 @@ const Index = () => {
             </CardContent>
           </Card>
         </div>
-
-        {/* Todo List */}
-        <TodoList />
 
         {/* Linux Terminal */}
         <LinuxTerminal />
