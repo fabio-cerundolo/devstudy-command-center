@@ -9,7 +9,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { TodoProject, TodoItem } from '../types/StudyTask';
 import { todoService } from '../services/TodoService';
 import { CheckSquare, Square, Plus, FileText, Upload, Trash2, Tag, Calendar } from 'lucide-react';
-import { useToast } from '../hooks/use-toast';
 
 export const TodoList = () => {
   const [projects, setProjects] = useState<TodoProject[]>([]);
@@ -21,7 +20,6 @@ export const TodoList = () => {
   const [markdownContent, setMarkdownContent] = useState('');
   const [isImportDialogOpen, setIsImportDialogOpen] = useState(false);
   const [isNewProjectDialogOpen, setIsNewProjectDialogOpen] = useState(false);
-  const { toast } = useToast();
 
   useEffect(() => {
     loadProjects();
@@ -52,10 +50,7 @@ export const TodoList = () => {
     loadProjects();
     setSelectedProject(newProject);
     
-    toast({
-      title: "Progetto creato",
-      description: `Il progetto "${newProject.name}" è stato creato con successo.`
-    });
+    console.log(`Progetto creato: ${newProject.name}`);
   };
 
   const handleImportMarkdown = () => {
@@ -92,10 +87,7 @@ export const TodoList = () => {
     loadProjects();
     setSelectedProject(newProject);
     
-    toast({
-      title: "Import completato",
-      description: `Il progetto "${newProject.name}" è stato importato dal markdown.`
-    });
+    console.log(`Import completato: ${newProject.name}`);
   };
 
   const handleAddTodo = () => {
@@ -133,10 +125,7 @@ export const TodoList = () => {
       setSelectedProject(remainingProjects.length > 0 ? remainingProjects[0] : null);
     }
     
-    toast({
-      title: "Progetto eliminato",
-      description: "Il progetto è stato eliminato con successo."
-    });
+    console.log('Progetto eliminato');
   };
 
   const getProjectTypeColor = (type?: string) => {
@@ -366,7 +355,13 @@ export const TodoList = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => todoService.deleteTodoItem(selectedProject.id, item.id)}
+                          onClick={() => {
+                            todoService.deleteTodoItem(selectedProject.id, item.id);
+                            loadProjects();
+                            // Aggiorna il progetto selezionato
+                            const updatedProject = todoService.getProjects().find(p => p.id === selectedProject.id);
+                            if (updatedProject) setSelectedProject(updatedProject);
+                          }}
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
